@@ -26,6 +26,8 @@ add_executable(puzzle8
     src/main.cpp
     src/Button.cpp
     src/MenuManager.cpp
+    src/Tablero.cpp
 )
+
 target_include_directories(puzzle8 PRIVATE include)
 target_link_libraries(puzzle8 PRIVATE raylib)
