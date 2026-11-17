@@ -6,10 +6,17 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Descarga raylib automáticamente desde GitHub
 include(FetchContent)
+
+set(CMAKE_POLICY_VERSION_MINIMUM 3.5)
+
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Debug CACHE STRING "Tipo de compilación" FORCE)
+endif()
+
 FetchContent_Declare(
     raylib
     GIT_REPOSITORY https://github.com/raysan5/raylib.git
-    GIT_TAG 5.0
+    GIT_TAG 5.5
     GIT_SHALLOW TRUE
 )
 set(BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
@@ -20,7 +27,5 @@ add_executable(puzzle8
     src/Button.cpp
     src/MenuManager.cpp
 )
-
-# Carpeta de headers del proyecto
 target_include_directories(puzzle8 PRIVATE include)
 target_link_libraries(puzzle8 PRIVATE raylib)
