@@ -14,6 +14,7 @@ Lo que debe estar instalado antes de compilar:
 
 Compilación y ejecución
 Los comandos exactos, para que cualquiera pueda replicarlos:
+    
     git clone <enlace del repositorio>
     cd Proyecto_Serna
     cmake -B build -G "MinGW Makefiles" -DCMAKE_C_COMPILER=<ruta>/gcc.exe -DCMAKE_CXX_COMPILER=<ruta>/g++.exe
