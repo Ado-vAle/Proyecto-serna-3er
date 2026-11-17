@@ -1,18 +1,21 @@
 #include "raylib.h"
+#include "MenuManager.h"
 
 int main() {
-    InitWindow(800, 450, "Prueba raylib");
+    const int screenHeight = 600;
+    InitWindow(MenuManager::kScreenWidth, screenHeight, "Puzzle 8-Piezas");
     SetTargetFPS(60);
 
-    while (!WindowShouldClose()) {
+    MenuManager menu;
+
+    while (!WindowShouldClose() && !menu.IsExitRequested()) {
+        menu.Update();
+
         BeginDrawing();
-        ClearBackground(RAYWHITE);
-        DrawText("Funciona raylib!", 250, 200, 30, DARKGRAY);
+        menu.Draw();
         EndDrawing();
     }
 
     CloseWindow();
     return 0;
-
-    //hola
 }
