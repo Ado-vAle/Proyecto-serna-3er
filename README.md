@@ -2,7 +2,10 @@
 
 Juego del 8-puzzle en C++ con raylib, desarrollado como proyecto para las materias de programacion y de estructura de datos de tercer semestre de la universidad autonoma de aguascalientes para la carrera de ingenieria en sistemas. Incluye modo manual e inteligente con sugerencias mediante el algoritmo A*.
 
-**Integrantes:** Diego Alejandro Rodriguez Garcia, Caroll Alexa Virgen Rivera, Alexa Dileny
+**Integrantes:** 
+    Diego Alejandro Rodriguez Garcia
+    Caroll Alexa Virgen Rivera 
+    Alexa Dileny
 
 Requisitos
 Lo que debe estar instalado antes de compilar:
