@@ -3,7 +3,8 @@
 #include "raylib.h"
 
 // Botón rectangular que se dibuja en pantalla y detecta clics del mouse
-class Button {
+class Button
+{
 public:
     // Crea un botón con su área (posición y tamaño) y su texto
     Button(Rectangle bounds, std::string label);
@@ -15,6 +16,6 @@ public:
     bool IsClicked() const;
 
 private:
-    Rectangle bounds;   // Área del botón en pantalla
-    std::string label;  // Texto que muestra el botón
+    Rectangle bounds;  // Área del botón en pantalla
+    std::string label; // Texto que muestra el botón
 };

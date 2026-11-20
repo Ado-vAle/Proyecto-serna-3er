@@ -2,11 +2,12 @@
 
 // Estado del tablero del 8-puzzle (3x3).
 // El espacio vacío se representa con el valor 0.
-class Tablero {
+class Tablero
+{
 public:
-    static constexpr int kFilas = 3;     // Número de filas del tablero
-    static constexpr int kColumnas = 3;  // Número de columnas del tablero
-    static constexpr int kVacio = 0;     // Valor que representa el espacio libre
+    static constexpr int kFilas = 3;    // Número de filas del tablero
+    static constexpr int kColumnas = 3; // Número de columnas del tablero
+    static constexpr int kVacio = 0;    // Valor que representa el espacio libre
 
     // Crea el tablero en estado meta: 1 2 3 / 4 5 6 / 7 8 _
     Tablero();
@@ -35,11 +36,15 @@ public:
     void MezclarAleatorio(int cantidadMovimientos);
 
     // Indica si dos tableros tienen las mismas piezas en las mismas casillas
-    bool EsIgualA(const Tablero& otro) const;
+    bool EsIgualA(const Tablero &otro) const;
+
+    // Carga una configuración de 9 valores (0 a 8, cada uno una sola vez).
+    // Regresa false si la lista no es válida y en ese caso no cambia el tablero.
+    bool EstablecerPiezas(const int valores[kFilas * kColumnas]);
 
 private:
     // Busca la fila y columna del espacio libre y las guarda en los parámetros
-    void BuscarVacio(int& fila, int& columna) const;
+    void BuscarVacio(int &fila, int &columna) const;
 
-    int piezas[kFilas][kColumnas];  // Valor de cada casilla
+    int piezas[kFilas][kColumnas]; // Valor de cada casilla
 };

@@ -27,7 +27,10 @@ add_executable(puzzle8
     src/Button.cpp
     src/MenuManager.cpp
     src/Tablero.cpp
-)
+    src/VistaTablero.cpp
+    src/CapturaNom.cpp
+    src/Puntuaciones.cpp
+    src/VerPuntos.cpp)
 
 target_include_directories(puzzle8 PRIVATE include)
 target_link_libraries(puzzle8 PRIVATE raylib)

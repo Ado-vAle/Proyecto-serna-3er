@@ -32,3 +32,8 @@ Un árbol corto de carpetas, para que encuentre los archivos rápido:
     src/       → código fuente (.cpp)
     docs/      → documento de reglas, bitácora y manual
 
+
+Compilar y ejecutar 
+
+    cmake --build build
+    .\build\puzzle8.exe

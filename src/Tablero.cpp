@@ -1,19 +1,25 @@
 #include "Tablero.h"
 #include "raylib.h"
 
-Tablero::Tablero() {
+Tablero::Tablero()
+{
     Reiniciar();
 }
 
-int Tablero::ObtenerPieza(int fila, int columna) const {
+int Tablero::ObtenerPieza(int fila, int columna) const
+{
     return piezas[fila][columna];
 }
 
-void Tablero::BuscarVacio(int& fila, int& columna) const {
+void Tablero::BuscarVacio(int &fila, int &columna) const
+{
     // Recorre el tablero hasta encontrar el espacio libre
-    for (int f = 0; f < kFilas; ++f) {
-        for (int c = 0; c < kColumnas; ++c) {
-            if (piezas[f][c] == kVacio) {
+    for (int f = 0; f < kFilas; ++f)
+    {
+        for (int c = 0; c < kColumnas; ++c)
+        {
+            if (piezas[f][c] == kVacio)
+            {
                 fila = f;
                 columna = c;
                 return;
@@ -22,9 +28,11 @@ void Tablero::BuscarVacio(int& fila, int& columna) const {
     }
 }
 
-bool Tablero::EsMovimientoValido(int fila, int columna) const {
+bool Tablero::EsMovimientoValido(int fila, int columna) const
+{
     // Descarta casillas fuera del tablero
-    if (fila < 0 || fila >= kFilas || columna < 0 || columna >= kColumnas) {
+    if (fila < 0 || fila >= kFilas || columna < 0 || columna >= kColumnas)
+    {
         return false;
     }
 
@@ -38,8 +46,10 @@ bool Tablero::EsMovimientoValido(int fila, int columna) const {
     return distanciaFila + distanciaColumna == 1;
 }
 
-bool Tablero::MoverPieza(int fila, int columna) {
-    if (!EsMovimientoValido(fila, columna)) {
+bool Tablero::MoverPieza(int fila, int columna)
+{
+    if (!EsMovimientoValido(fila, columna))
+    {
         return false;
     }
 
@@ -52,12 +62,16 @@ bool Tablero::MoverPieza(int fila, int columna) {
     return true;
 }
 
-bool Tablero::EstaResuelto() const {
+bool Tablero::EstaResuelto() const
+{
     // Cada casilla debe tener su número: 1, 2, ..., 8 y al final el vacío
-    for (int f = 0; f < kFilas; ++f) {
-        for (int c = 0; c < kColumnas; ++c) {
+    for (int f = 0; f < kFilas; ++f)
+    {
+        for (int c = 0; c < kColumnas; ++c)
+        {
             int esperado = (f * kColumnas + c + 1) % (kFilas * kColumnas);
-            if (piezas[f][c] != esperado) {
+            if (piezas[f][c] != esperado)
+            {
                 return false;
             }
         }
@@ -65,21 +79,26 @@ bool Tablero::EstaResuelto() const {
     return true;
 }
 
-bool Tablero::EsResoluble() const {
+bool Tablero::EsResoluble() const
+{
     // En un tablero de ancho impar, la configuración es resoluble
     // si el número de inversiones (piezas en orden incorrecto) es par.
     // El espacio libre no se cuenta.
     const int total = kFilas * kColumnas;
     int inversiones = 0;
 
-    for (int i = 0; i < total; ++i) {
+    for (int i = 0; i < total; ++i)
+    {
         int a = piezas[i / kColumnas][i % kColumnas];
-        if (a == kVacio) {
+        if (a == kVacio)
+        {
             continue;
         }
-        for (int j = i + 1; j < total; ++j) {
+        for (int j = i + 1; j < total; ++j)
+        {
             int b = piezas[j / kColumnas][j % kColumnas];
-            if (b != kVacio && a > b) {
+            if (b != kVacio && a > b)
+            {
                 ++inversiones;
             }
         }
@@ -87,44 +106,78 @@ bool Tablero::EsResoluble() const {
     return inversiones % 2 == 0;
 }
 
-void Tablero::Reiniciar() {
+void Tablero::Reiniciar()
+{
     // Llena el tablero con los valores de la meta
-    for (int f = 0; f < kFilas; ++f) {
-        for (int c = 0; c < kColumnas; ++c) {
+    for (int f = 0; f < kFilas; ++f)
+    {
+        for (int c = 0; c < kColumnas; ++c)
+        {
             piezas[f][c] = (f * kColumnas + c + 1) % (kFilas * kColumnas);
         }
     }
 }
 
-void Tablero::MezclarAleatorio(int cantidadMovimientos) {
+void Tablero::MezclarAleatorio(int cantidadMovimientos)
+{
     Reiniciar();
 
     // Repite movimientos legales al azar hasta completar la cantidad pedida.
     // Solo cuenta los movimientos que sí se realizaron.
     int realizados = 0;
-    while (realizados < cantidadMovimientos) {
+    while (realizados < cantidadMovimientos)
+    {
         int vacioFila = 0;
         int vacioColumna = 0;
         BuscarVacio(vacioFila, vacioColumna);
 
         // Elige una dirección al azar: 0 arriba, 1 abajo, 2 izquierda, 3 derecha
         int direccion = GetRandomValue(0, 3);
-        int filaDestino = vacioFila + (direccion == 0 ? -1 : direccion == 1 ? 1 : 0);
-        int columnaDestino = vacioColumna + (direccion == 2 ? -1 : direccion == 3 ? 1 : 0);
+        int filaDestino = vacioFila + (direccion == 0 ? -1 : direccion == 1 ? 1
+                                                                            : 0);
+        int columnaDestino = vacioColumna + (direccion == 2 ? -1 : direccion == 3 ? 1
+                                                                                  : 0);
 
-        if (MoverPieza(filaDestino, columnaDestino)) {
+        if (MoverPieza(filaDestino, columnaDestino))
+        {
             ++realizados;
         }
     }
 }
 
-bool Tablero::EsIgualA(const Tablero& otro) const {
-    for (int f = 0; f < kFilas; ++f) {
-        for (int c = 0; c < kColumnas; ++c) {
-            if (piezas[f][c] != otro.piezas[f][c]) {
+bool Tablero::EsIgualA(const Tablero &otro) const
+{
+    for (int f = 0; f < kFilas; ++f)
+    {
+        for (int c = 0; c < kColumnas; ++c)
+        {
+            if (piezas[f][c] != otro.piezas[f][c])
+            {
                 return false;
             }
         }
+    }
+    return true;
+}
+
+bool Tablero::EstablecerPiezas(const int valores[kFilas * kColumnas])
+{
+    // Marca qué valores ya aparecieron para detectar repetidos o fuera de rango
+    bool usado[kFilas * kColumnas] = {false};
+    for (int i = 0; i < kFilas * kColumnas; ++i)
+    {
+        int valor = valores[i];
+        if (valor < 0 || valor >= kFilas * kColumnas || usado[valor])
+        {
+            return false;
+        }
+        usado[valor] = true;
+    }
+
+    // La lista es válida: copia los valores al tablero
+    for (int i = 0; i < kFilas * kColumnas; ++i)
+    {
+        piezas[i / kColumnas][i % kColumnas] = valores[i];
     }
     return true;
 }
